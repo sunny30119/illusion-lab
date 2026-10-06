@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>視覺錯覺實驗室</title>
+  <link rel="stylesheet" href="css/style.css?v=4">
+</head>
+<body data-tab="home">
+
+<!-- ===================== 頂部 ===================== -->
+<header class="topbar">
+  <div class="topbar-row">
+    <a class="brand" href="#home" data-goto="home">
+      <span class="brand-logo">👁️</span>
+      <span class="brand-text">
+        <strong>視覺錯覺實驗室</strong>
+        <small>你的大腦，每天都在「猜」世界</small>
+      </span>
+    </a>
+    <div class="top-actions">
+      <span class="stamp-pill" title="收集到的印章">🏅 <b id="stamp-count">0</b>/<span id="stamp-total">0</span></span>
+      <button class="btn btn-sm" id="btn-big" type="button">🔍 放大字體</button>
+      <button class="btn btn-sm" id="btn-pause" type="button">⏸ 暫停動畫</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="分頁">
+    <button class="tab-btn" data-tab="home" role="tab">🏠 首頁圖鑑</button>
+    <button class="tab-btn" data-tab="space" role="tab">🧊 1 空間深度</button>
+    <button class="tab-btn" data-tab="light" role="tab">🌗 2 明暗顏色</button>
+    <button class="tab-btn" data-tab="size" role="tab">📏 3 長度大小</button>
+    <button class="tab-btn" data-tab="motion" role="tab">🌀 4 動起來了</button>
+    <button class="tab-btn" data-tab="eye" role="tab">👀 5 眼睛的祕密 <em>新</em></button>
+    <button class="tab-btn" data-tab="brain" role="tab">🧩 6 大腦愛腦補 <em>新</em></button>
+    <button class="tab-btn" data-tab="game" role="tab">🎮 7 挑戰區 <em>新</em></button>
+    <button class="tab-btn" data-tab="lab" role="tab">🧪 8 探究與總結</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ===================== 首頁 ===================== -->
+<section class="tab-panel" id="tab-home">
+  <div class="hero card">
+    <div class="hero-text">
+      <p class="eyebrow">歡迎來到</p>
+      <h1>你的眼睛沒有壞，<br>是大腦太會「猜」了。</h1>
+      <p class="lead">這裡有 <b id="hero-total">27</b> 個實驗。每一個都會讓你親眼看到：大腦怎麼用「經驗規則」快速猜出世界的樣子，又在什麼時候猜錯。</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" data-goto="space">開始探險 →</button>
+        <button class="btn" data-goto="game">直接玩挑戰 🎮</button>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <canvas id="home-snakes"></canvas>
+      <figcaption>👆 這張圖<b>完全沒有在動</b>。真的。</figcaption>
+    </figure>
+  </div>
+
+  <div class="howto">
+    <div class="howto-step"><span>1</span><b>先猜猜看</b><p>還沒動手前，先寫下你的直覺。</p></div>
+    <div class="howto-step"><span>2</span><b>動手揭曉</b><p>拉桿子、按按鈕，找出真相。</p></div>
+    <div class="howto-step"><span>3</span><b>弄懂為什麼</b><p>看懂大腦用了哪條規則，收集印章 🏅</p></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><h2>📖 錯覺圖鑑</h2><span class="tag">點一下就能直接跳過去</span></div>
+    <div id="dex" class="dex"></div>
+    <p class="small muted" style="margin-top:1rem">進度只存在這台電腦的瀏覽器裡。 <button class="linkish" id="btn-reset" type="button">清除我的進度</button></p>
+  </div>
+
+  <details class="card teacher">
+    <summary>🧑‍🏫 老師使用說明（安全提醒、課綱連結、上課建議）</summary>
+    <div class="teacher-body">
+      <h4>⚠️ 安全提醒</h4>
+      <ul>
+        <li>第 4、5 分頁有會動的圖，少數學生可能頭暈。請提醒學生：不舒服就移開視線、看遠方。右上角「暫停動畫」可以一鍵停止所有動畫。</li>
+        <li>本網頁已移除所有「大面積快速閃爍」的效果。若班上有光敏感癲癇病史的學生，仍建議先讓他知道內容。</li>
+        <li>如果電腦開啟「減少動態效果」，動畫預設不會自動播放，要按播放鍵才會開始。</li>
+      </ul>
+      <h4>🔗 課綱連結</h4>
+      <ul>
+        <li>七年級生物：眼睛的構造（盲點、視網膜、視神經）、感覺與神經系統。</li>
+        <li>八年級理化：光的折射、透鏡、色光（色差立體、殘像、互補色）。</li>
+        <li>九年級地科：月亮（月亮錯覺）。</li>
+        <li>科學本質：赫曼方格、繆勒-萊爾的「解釋被新證據挑戰」，適合討論「科學解釋會修正」。</li>
+        <li>探究與實作：第 8 分頁「箭頭角度實驗」是完整的變因控制活動，可以接論證寫作（主張／證據／理由）。</li>
+      </ul>
+      <h4>🕐 上課建議</h4>
+      <ul>
+        <li>每個分頁約 15～20 分鐘。投影時按「🔍 放大字體」，關燈效果更好。</li>
+        <li>「先猜猜看」可以讓全班舉手投票，再一起揭曉，效果最好。</li>
+        <li>需要網路的只有 1.2「空心面具」（要載入 3D 繪圖工具），其他全部離線也能用。</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== 分頁 1：空間深度 ===================== -->
+<section class="tab-panel" id="tab-space" hidden>
+  <div class="intro" style="--accent: var(--c-space)">
+    <h2>🧊 平平的眼睛，怎麼看出立體？</h2>
+    <p>眼睛裡的視網膜像一張平平的底片，只拍得到 2D 的畫面。你覺得世界是立體的，是因為大腦根據各種「線索」<b>猜</b>出遠近和凹凸。這一區要看看大腦用了哪些線索，又在什麼時候猜錯。</p>
+  </div>
+
+  <!-- 1.1 光影凹凸 -->
+  <article class="card ill" id="c-crater" data-ill="crater">
+    <header class="card-h"><span class="num">1.1</span><h3>光影凹凸</h3><span class="tag">大腦規則：光從上面來</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#8a8f99">
+        <div class="rot-wrap" id="crater-wrap"><canvas id="crater-cv"></canvas></div>
+        <p class="stage-note" id="crater-note">大部分人會看到：凸起來的球</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="crater"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <label class="range">光從哪裡來 <output id="crater-angle-out">0°（正上方）</output>
+              <input type="range" id="crater-angle" min="0" max="360" value="0"></label>
+            <div class="btn-row">
+              <button class="btn btn-sm" data-crater="top">☀️ 光從上面</button>
+              <button class="btn btn-sm" data-crater="bottom">🔦 光從下面</button>
+              <button class="btn btn-sm" data-crater="flip">🔄 整張圖倒過來</button>
+              <button class="btn btn-sm" data-crater="mix">🎲 混合模式</button>
+              <button class="btn btn-sm" data-crater="sun">🌞 顯示光源位置</button>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>你從小到大看到的光，幾乎都是<b>從上面來</b>的（太陽、電燈）。所以大腦學會一條規則：「上面亮、下面暗」就是<b>凸起來</b>；「上面暗、下面亮」就是<b>凹下去</b>。把圖倒過來，凹凸就一起翻轉了。</p>
+          <details><summary>深入一點</summary>
+            <p>這條規則叫「光從上方來的假設」。有趣的是，它主要是以<b>你的頭</b>為準，而不是以地面為準：歪著頭看，效果也會跟著歪。月球隕石坑的照片倒過來看，坑會變成山丘，也是同一個原因。</p>
+            <p>打開「顯示光源位置」後，就算你<b>知道</b>光從下面來，還是很難把它們看成凸起——大腦的規則比你的理智還要頑固！</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1.2 空心面具 -->
+  <article class="card ill" id="c-mask" data-ill="mask">
+    <header class="card-h"><span class="num">1.2</span><h3>空心面具</h3><span class="tag">大腦規則：臉一定是凸的</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#1d2433">
+        <div id="mask-box" class="mask-box"></div>
+        <p class="stage-note light" id="mask-label">目前看到：面具的某一面</p>
+        <p class="stage-note light small">可以用滑鼠或手指拖曳旋轉</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="mask"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <div class="btn-row">
+              <button class="btn btn-sm" id="mask-spin">▶ 開始旋轉</button>
+              <button class="btn btn-sm" data-mask="top">⬇️ 從上面往下看</button>
+              <button class="btn btn-sm" data-mask="wire">🕸 線框模式</button>
+              <button class="btn btn-sm" data-mask="front">😀 轉到正面</button>
+              <button class="btn btn-sm" data-mask="back">🫥 轉到內側</button>
+            </div>
+            <label class="range">旋轉速度 <output id="mask-speed-out">1.0 倍</output>
+              <input type="range" id="mask-speed" min="0.2" max="2.5" step="0.1" value="1"></label>
+            <p class="tip">💡 看面具轉到內側時，它是不是好像<b>反方向</b>在轉、一直盯著你？</p>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>你這輩子看過的臉，<b>全部都是凸出來的</b>。大腦太相信「臉一定是凸的」，所以就算看到面具凹進去的內側，它還是硬把它看成一張凸出來的臉。</p>
+          <details><summary>深入一點</summary>
+            <p>這叫「由上而下的處理」：大腦用過去的知識，去改寫眼睛收到的訊號。</p>
+            <p>在真實世界裡，用兩隻眼睛近距離看真的面具，兩眼看到的畫面不一樣（雙眼視差），可以幫忙看出它是凹的，錯覺會弱一些。但螢幕是平的，兩眼看到的畫面一模一樣，沒有這個線索，所以更容易被騙。想知道雙眼視差是什麼，可以去「👀 眼睛的祕密」分頁。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 1.3 網格鼓起 -->
+  <article class="card ill" id="c-opart" data-ill="opart">
+    <header class="card-h"><span class="num">1.3</span><h3>網格鼓起來了</h3><span class="tag">大腦規則：花紋大小代表角度</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#e9e4da">
+        <canvas id="opart-cv"></canvas>
+        <p class="stage-note">用滑鼠或手指在圖上拖曳，鼓起的地方會跟著移動</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="opart"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <label class="range">鼓起 ↔ 凹陷 <output id="opart-str-out">+70%（鼓起）</output>
+              <input type="range" id="opart-str" min="-100" max="100" value="70"></label>
+            <label class="range">格子數量 <output id="opart-den-out">20 × 20</output>
+              <input type="range" id="opart-den" min="10" max="36" step="2" value="20"></label>
+            <div class="btn-row">
+              <button class="btn btn-sm" id="opart-guide">📐 疊上直線參考格</button>
+              <button class="btn btn-sm" id="opart-center">🎯 回到中間</button>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>一塊有花紋的布被撐起來時，正對你的地方花紋看起來大，往旁邊彎過去的地方被擠得又扁又小。大腦記得這個規律，所以看到「中間大、旁邊小」的格子，就自動腦補出鼓起來的曲面。</p>
+          <details><summary>深入一點</summary>
+            <p>這個線索叫「紋理梯度」。歐普藝術（Op Art）的畫家只用黑白方格，就能做出凸起、凹陷甚至旋轉的感覺。疊上直線參考格就會發現：其實只是平面上的格子被拉長、壓扁而已。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid-2">
+    <!-- 1.4 奈克方塊 -->
+    <article class="card ill" id="c-necker" data-ill="necker">
+      <header class="card-h"><span class="num">1.4</span><h3>奈克方塊</h3><span class="tag">大腦規則：一次只選一個答案</span></header>
+      <div class="stage" style="--stage-bg:#f6f2ea"><canvas id="necker-cv"></canvas></div>
+      <div class="guess" data-for="necker"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" data-necker="A">讓左下那面在前</button>
+            <button class="btn btn-sm" data-necker="B">讓右上那面在前</button>
+            <button class="btn btn-sm" data-necker="none">回到透明</button>
+          </div>
+          <div class="mini-game">
+            <b>⏱ 翻轉計數挑戰（20 秒）</b>
+            <p class="small">盯著方塊，每次感覺它「翻」過去就按一下。</p>
+            <div class="btn-row">
+              <button class="btn btn-sm" id="necker-start">開始</button>
+              <button class="btn btn-sm btn-primary" id="necker-hit" disabled>翻了！</button>
+            </div>
+            <p class="result-line" id="necker-result"></p>
+          </div>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>這個線框沒有「誰擋住誰」的線索，兩種立體解讀都說得通。大腦沒辦法同時接受兩個答案，只好在兩者之間輪流切換。</p>
+        <details><summary>深入一點</summary>
+          <p>這叫「雙穩態知覺」。圖完全沒變，變的是大腦的解讀。盯著某一個角看，可以稍微控制它翻轉。每個人翻轉的速度不同，沒有標準答案。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 1.5 紅藍立體 -->
+    <article class="card ill" id="c-chromo" data-ill="chromo">
+      <header class="card-h"><span class="num">1.5</span><h3>紅藍立體</h3><span class="tag">原因：眼睛的色差</span></header>
+      <div class="stage chromo-stage" id="chromo-stage" style="--stage-bg:#000">
+        <div class="chromo-panel" style="background:#0000ff;color:#ff0000">
+          <span class="chromo-word">浮</span><i style="background:#ff0000"></i><i style="background:#ff0000"></i>
+        </div>
+        <div class="chromo-panel" style="background:#ff0000;color:#0000ff">
+          <span class="chromo-word">沉</span><i style="background:#0000ff"></i><i style="background:#0000ff"></i>
+        </div>
+      </div>
+      <div class="guess" data-for="chromo"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" id="chromo-gray">⚫ 轉成黑白</button>
+          </div>
+          <p class="tip">👁 試試<b>閉上一隻眼睛</b>再看，浮起來的感覺是不是變弱了？</p>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>不同顏色的光穿過眼睛的水晶體時，偏折的程度不一樣（就像三稜鏡把白光分成彩虹）。紅光和藍光落在視網膜上的位置差了一點點，而且兩隻眼睛差的方向相反，大腦就把這個差距誤認成「遠近不同」。</p>
+        <details><summary>深入一點</summary>
+          <p>因為要靠兩隻眼睛比對，所以閉上一隻眼，立體感通常會變弱；轉成黑白後顏色差異消失，效果也跟著不見。大多數人覺得紅色比較近，但也有人剛好相反，這不是看錯。這也是為什麼「藍底紅字」的投影片讓人眼睛很累。</p>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 分頁 2：明暗顏色 ===================== -->
+<section class="tab-panel" id="tab-light" hidden>
+  <div class="intro" style="--accent: var(--c-light)">
+    <h2>🌗 你看到的，是「真正的顏色」嗎？</h2>
+    <p>大腦在意的不是螢幕發出多少光，而是「這個東西<b>本來</b>是什麼顏色」。所以它會先估計現在的光線，再把光線的影響扣掉。大部分時候這很聰明，但有時候會扣錯。</p>
+  </div>
+
+  <!-- 2.1 棋盤陰影 -->
+  <article class="card ill" id="c-checker" data-ill="checker">
+    <header class="card-h"><span class="num">2.1</span><h3>棋盤陰影</h3><span class="tag">大腦規則：影子裡的東西要補亮</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#e2ddd3">
+        <canvas id="checker-cv"></canvas>
+        <div class="probe" id="checker-probe" hidden>
+          <span class="swatch" id="probe-swatch"></span><span id="probe-text">點棋盤上任何一格</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="checker"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <p class="tip">🎨 <b>取色器：</b>直接點棋盤上的任何一格，看它在螢幕上真正的顏色。</p>
+            <div class="btn-row">
+              <button class="btn btn-sm" id="checker-mask">🙈 遮住其他格子</button>
+              <button class="btn btn-sm" id="checker-bridge">🌉 搭一座灰色的橋</button>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>B 在圓柱的影子裡。大腦知道「影子裡的東西看起來會比較暗」，所以自動幫 B <b>補亮</b>，認定它本來是白格子。A 在亮處卻這麼灰，大腦就認定它是黑格子。</p>
+          <details><summary>深入一點</summary>
+            <p>這叫「明度恆常性」：一張白紙不管在太陽下或陰影裡，你都覺得它是白的。周圍格子也有幫忙：A 被亮格子包圍，顯得更暗；B 被暗格子包圍，顯得更亮。這張圖是麻省理工學院的阿德爾森（Edward Adelson）在 1995 年設計的。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid-2">
+    <!-- 2.2 洋裝 -->
+    <article class="card ill" id="c-dress" data-ill="dress">
+      <header class="card-h"><span class="num">2.2</span><h3>洋裝之謎</h3><span class="tag">大腦規則：先猜光線，再扣掉</span></header>
+      <div class="stage" style="--stage-bg:#ddd"><canvas id="dress-cv"></canvas></div>
+      <div class="guess" data-for="dress"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <label class="range">周圍的光線 <output id="dress-out">中間</output>
+            <input type="range" id="dress-light" min="0" max="100" value="50"></label>
+          <div class="range-ends"><span>💡 暖黃燈光</span><span>🌫 藍色陰影</span></div>
+          <button class="btn btn-sm" id="dress-neutral">⬜ 換成灰色背景</button>
+          <div class="swatches">
+            <div><span class="swatch" style="background:rgb(132,140,186)"></span>洋裝淺色條紋：RGB(132, 140, 186)</div>
+            <div><span class="swatch" style="background:rgb(112,90,55)"></span>洋裝深色條紋：RGB(112, 90, 55)</div>
+            <p class="small"><b>不管怎麼拉，洋裝這兩個顏色從頭到尾都沒變！</b>變的只有周圍的光線。</p>
+          </div>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>如果大腦猜「洋裝在偏黃的燈光下」，就把黃色扣掉，你會看到<b>藍黑</b>；如果猜「洋裝在偏藍的陰影裡」，就把藍色扣掉，你會看到<b>白金</b>。洋裝本身沒變，變的是大腦對光線的猜測。</p>
+        <details><summary>深入一點</summary>
+          <p>2015 年一張洋裝照片在網路上吵翻天，大約一半的人看到藍黑、一半看到白金。真正的洋裝是藍黑色的。有研究發現，習慣早起、常看到自然光的人比較容易看成白金，不過這個說法還在討論中。這裡是用電腦畫的模擬，不是原本的照片。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 2.3 赫曼方格 -->
+    <article class="card ill" id="c-hermann" data-ill="hermann">
+      <header class="card-h"><span class="num">2.3</span><h3>幽靈灰點</h3><span class="tag">科學解釋被挑戰的例子</span></header>
+      <div class="stage" style="--stage-bg:#fff"><canvas id="hermann-cv"></canvas></div>
+      <div class="guess" data-for="hermann"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" id="hermann-dot">🔴 顯示注視紅點</button>
+          </div>
+          <div class="seg" id="hermann-mode">
+            <button class="on" data-v="classic">經典方格</button>
+            <button data-v="wavy">彎曲街道</button>
+            <button data-v="scint">閃爍版</button>
+          </div>
+          <p class="tip">🔴 盯著紅點看時，紅點那個交叉口的灰點會消失，旁邊的卻還在。</p>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p><b>課本常見的解釋：</b>視網膜上相鄰的細胞會互相壓制（側抑制）。交叉口四周都是白色，被壓制得比較厲害，所以看起來比較暗。</p>
+        <details><summary>深入一點：這個解釋被挑戰了！</summary>
+          <p>科學家把街道改成<b>彎彎的</b>，灰點就幾乎不見了——可是側抑制理論預測灰點應該還在。所以現在科學家認為，大腦的視覺皮層也參與其中。點「彎曲街道」親自驗證看看！</p>
+          <p>科學解釋會隨著新證據修正，這就是科學的本質。</p>
+        </details>
+      </div>
+    </article>
+  </div>
+
+  <!-- 2.4 殘像蘋果 -->
+  <article class="card ill" id="c-after" data-ill="after">
+    <header class="card-h"><span class="num">2.4</span><h3>殘像蘋果</h3><span class="tag">原因：感光細胞累了</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#fff">
+        <canvas id="after-cv"></canvas>
+        <p class="stage-note" id="after-note">按「開始 15 秒凝視」，然後一直盯著中間的黑點</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="after"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手實驗</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <button class="btn btn-primary" id="after-start">⏱ 開始 15 秒凝視</button>
+            <p class="tip">💡 殘影變淡時，<b>眨眨眼</b>可以讓它再出現一下。</p>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>眼睛裡有三種分別對紅、綠、藍比較敏感的感光細胞（視錐細胞）。一直盯著藍綠色，負責藍和綠的細胞<b>累了</b>，反應變弱。這時再看白色（白光包含所有顏色），沒有累的「紅色」細胞相對比較強，你就看到紅色的蘋果。</p>
+          <details><summary>深入一點</summary>
+            <p>紅↔青（藍綠）、綠↔洋紅、黑↔白，這些互相對立的顏色叫「互補色」。大腦處理顏色時，就是用「紅對綠、藍對黃、黑對白」三組對立的方式在運作（對立歷程理論）。蘋果的葉子是洋紅色，所以殘像裡的葉子會變成綠色。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ===================== 分頁 3：長度大小 ===================== -->
+<section class="tab-panel" id="tab-size" hidden>
+  <div class="intro" style="--accent: var(--c-size)">
+    <h2>📏 大腦的尺，是歪的？</h2>
+    <p>大腦判斷長短大小時，很少用「絕對的尺」，而是一直拿旁邊的東西來比，或者偷偷把「遠近」也算進去。</p>
+  </div>
+
+  <!-- 3.1 繆勒-萊爾 -->
+  <article class="card ill" id="c-muller" data-ill="muller">
+    <header class="card-h"><span class="num">3.1</span><h3>箭頭長短（繆勒-萊爾錯覺）</h3><span class="tag">大腦規則：牆角的遠近</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#fffdf8">
+        <canvas id="muller-cv"></canvas>
+        <p class="stage-note" id="muller-note"></p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="muller"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <div class="btn-row">
+              <button class="btn btn-sm" id="muller-ruler">📏 顯示尺規</button>
+              <button class="btn btn-sm" id="muller-fins">✂️ 拿掉箭頭</button>
+            </div>
+            <div class="mini-game">
+              <b>🎯 挑戰：調到一樣長</b>
+              <p class="small">按「新挑戰」後，下面那條線會變成隨機長度。請拉桿子，調到你<b>覺得</b>跟上面一樣長。</p>
+              <label class="range">下面的線 <output id="muller-len-out">200 px</output>
+                <input type="range" id="muller-len" min="130" max="270" value="200"></label>
+              <div class="btn-row">
+                <button class="btn btn-sm" id="muller-new">🎲 新挑戰</button>
+                <button class="btn btn-sm btn-primary" id="muller-check">✅ 我調好了</button>
+              </div>
+              <p class="result-line" id="muller-result"></p>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>有一種解釋：向外張開的箭頭 &gt;—&lt; 很像<b>房間裡面的牆角</b>（離你比較遠）；向內的箭頭 &lt;—&gt; 像<b>建築物外面的牆角</b>（離你比較近）。大腦覺得「比較遠的東西還看起來一樣長，它實際上一定比較長」，所以把 &gt;—&lt; 看長了。</p>
+          <details><summary>深入一點：還沒有定論</summary>
+            <p>這只是其中一種解釋。把箭頭換成小圓圈，錯覺還是存在，所以也有科學家認為：大腦會把箭頭佔的範圍一起算進長度裡。到現在還沒有定論。你可以到「🧪 探究與總結」分頁，自己做實驗，研究箭頭角度會不會影響錯覺！</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid-3">
+    <!-- 3.2 艾賓浩斯 -->
+    <article class="card ill" id="c-ebbing" data-ill="ebbing">
+      <header class="card-h"><span class="num">3.2</span><h3>圓圈大小</h3><span class="tag">大腦規則：跟旁邊比</span></header>
+      <div class="stage" style="--stage-bg:#fffdf8"><canvas id="ebbing-cv"></canvas></div>
+      <div class="guess" data-for="ebbing"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" id="ebbing-move">➡️ 把右邊的圓疊過去</button>
+            <button class="btn btn-sm" id="ebbing-off">🧹 拿掉周圍的圓</button>
+          </div>
+          <label class="range">周圍圓的大小 <output id="ebbing-out">1.0 倍</output>
+            <input type="range" id="ebbing-scale" min="0.5" max="1.5" step="0.1" value="1"></label>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>大腦判斷大小時，會拿旁邊的東西當參考。被大圓包圍就顯得小，被小圓包圍就顯得大。</p>
+        <details><summary>深入一點</summary>
+          <p>有研究發現：眼睛雖然被騙，但伸手去「抓」這兩個圓時，手指張開的大小差異比較小。大腦負責「看」和負責「動作」的路線，可能是分開處理的。不過這個說法科學家仍在爭論。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 3.3 龐佐 -->
+    <article class="card ill" id="c-ponzo" data-ill="ponzo">
+      <header class="card-h"><span class="num">3.3</span><h3>鐵軌透視</h3><span class="tag">大腦規則：近大遠小</span></header>
+      <div class="stage" style="--stage-bg:#fffdf8"><canvas id="ponzo-cv"></canvas></div>
+      <div class="guess" data-for="ponzo"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" id="ponzo-move">⬇️ 把上面的線移下來比</button>
+            <button class="btn btn-sm" id="ponzo-off">🧹 拿掉鐵軌</button>
+          </div>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>鐵軌越遠看起來越窄。大腦以為上面那條線在<b>比較遠</b>的地方。遠的東西在眼睛裡還這麼長，實際上一定更長，所以大腦就把它看長了。</p>
+        <details><summary>深入一點</summary>
+          <p>這叫「大小恆常性」：朋友走遠了，他在你視網膜上的影像變小，但你不會覺得他縮小了。這個功能平常很有用，只是在平面圖上被用錯了。月亮錯覺可能也跟它有關（見「👀 眼睛的祕密」分頁）。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 3.4 咖啡館牆 -->
+    <article class="card ill" id="c-cafe" data-ill="cafe">
+      <header class="card-h"><span class="num">3.4</span><h3>咖啡館牆</h3><span class="tag">原因：方向細胞被騙</span></header>
+      <div class="stage" style="--stage-bg:#fffdf8"><canvas id="cafe-cv"></canvas></div>
+      <div class="guess" data-for="cafe"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <button class="btn btn-sm" id="cafe-ref">📐 畫出水平參考線</button>
+          <div class="seg" id="cafe-mortar">
+            <button class="on" data-v="#8c8c8c">灰色縫</button>
+            <button data-v="#000000">黑色縫</button>
+            <button data-v="#ffffff">白色縫</button>
+          </div>
+          <label class="range">磚塊錯開多少 <output id="cafe-out">50%</output>
+            <input type="range" id="cafe-offset" min="0" max="100" value="50"></label>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>黑白磚塊錯開、中間夾著灰縫時，縫的上下兩邊亮暗不對稱。大腦裡負責偵測「線條方向」的細胞被這種不對稱騙到，以為線是斜的。</p>
+        <details><summary>深入一點</summary>
+          <p>這個錯覺是 1970 年代在英國布里斯托一家咖啡館的牆上發現的。把縫改成全黑或全白，錯覺會明顯變弱，用上面的按鈕驗證看看。</p>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 分頁 4：動起來了 ===================== -->
+<section class="tab-panel" id="tab-motion" hidden>
+  <div class="intro" style="--accent: var(--c-motion)">
+    <h2>🌀 靜止的圖，為什麼會動？</h2>
+    <p>大腦裡有專門負責「看移動」的區域。它很敏感，有時候會把「亮度變化的時間差」或「細胞疲勞」誤會成移動。</p>
+    <p class="warn">⚠️ 這一區有會動的圖。如果覺得頭暈、不舒服，請馬上移開視線、看看遠方。右上角可以「暫停動畫」。</p>
+  </div>
+
+  <!-- 4.1 旋轉蛇 -->
+  <article class="card ill" id="c-snakes" data-ill="snakes">
+    <header class="card-h"><span class="num">4.1</span><h3>旋轉蛇</h3><span class="tag">原因：亮度訊號的時間差</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#7f7f7f">
+        <canvas id="snakes-cv"></canvas>
+        <p class="stage-note light">用眼角餘光看最明顯；直直盯著某一點時，那裡會轉得比較慢</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="snakes"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <div class="btn-row">
+              <button class="btn btn-sm" id="snakes-fix">🎯 顯示中心點</button>
+              <button class="btn btn-sm" id="snakes-color">🎨 切換黑白版</button>
+            </div>
+            <p class="tip">🎯 盯著中心點、眼睛不要動，轉動會變慢甚至停下來。黑白版也會轉，代表重點是<b>亮度</b>，不是顏色。</p>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>圖案每一組都照「黑 → 深藍 → 白 → 黃」的順序排。亮暗差比較大的部分，訊號傳到大腦比較快；差比較小的部分慢一點點（差幾十毫秒）。眼睛會不自覺地一直微微跳動，每跳一次，大腦負責看移動的區域（MT 區）就把這個時間差誤會成「往某個方向轉」。</p>
+          <details><summary>深入一點</summary>
+            <p>這張圖是日本心理學家北岡明佳在 2003 年設計的。有一部分人完全看不到轉動，這很正常。年紀越大，通常越不容易看到。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid-2">
+    <!-- 4.2 踏步方塊 -->
+    <article class="card ill" id="c-footstep" data-ill="footstep">
+      <header class="card-h"><span class="num">4.2</span><h3>踏步方塊</h3><span class="tag">大腦規則：對比低＝比較慢</span></header>
+      <div class="stage" style="--stage-bg:#111"><canvas id="footstep-cv"></canvas></div>
+      <div class="guess" data-for="footstep"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" id="footstep-play">⏸ 暫停</button>
+            <button class="btn btn-sm" id="footstep-stripes">🦓 拿掉條紋</button>
+          </div>
+          <label class="range">速度 <output id="footstep-out">1.0 倍</output>
+            <input type="range" id="footstep-speed" min="0.3" max="2" step="0.1" value="1"></label>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>深藍方塊碰到白條紋時對比大，看起來走得快；碰到黑條紋時對比小，看起來變慢。黃方塊剛好相反。所以兩個方塊好像輪流踏步，其實一直都是<b>等速</b>前進。</p>
+        <details><summary>深入一點：跟開車安全有關！</summary>
+          <p>對比越低，大腦判斷的速度越慢。所以起霧的時候，駕駛人常常<b>低估</b>自己的車速，不知不覺越開越快，非常危險。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 4.3 螺旋後效 -->
+    <article class="card ill" id="c-mae" data-ill="mae">
+      <header class="card-h"><span class="num">4.3</span><h3>螺旋後效（瀑布效應）</h3><span class="tag">原因：移動細胞累了</span></header>
+      <div class="stage" style="--stage-bg:#111"><canvas id="mae-cv"></canvas></div>
+      <div class="guess" data-for="mae"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手實驗</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="seg" id="mae-dir">
+            <button class="on" data-v="in">螺旋向內縮</button>
+            <button data-v="out">螺旋向外擴</button>
+          </div>
+          <button class="btn btn-primary" id="mae-start">⏱ 開始 15 秒凝視</button>
+          <p class="tip">盯著螺旋正中央的紅點，15 秒後會自動換成一張靜止的風景。</p>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>大腦裡有專門偵測「往內」和「往外」移動的細胞。一直看往內縮的螺旋，負責「往內」的細胞累了；再看靜止的圖時，「往外」的細胞相對比較強，大腦就以為東西在往外膨脹。</p>
+        <details><summary>深入一點</summary>
+          <p>這叫「運動後效」。盯著瀑布看一陣子，再看旁邊的岩石，岩石好像在往上流，所以又叫「瀑布效應」。它跟殘像蘋果是同一種道理：細胞疲勞＋互相對立。</p>
+        </details>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 分頁 5：眼睛的祕密（新） ===================== -->
+<section class="tab-panel" id="tab-eye" hidden>
+  <div class="intro" style="--accent: var(--c-eye)">
+    <h2>👀 眼睛不是照相機</h2>
+    <p>這一區要用<b>你自己的眼睛</b>做實驗，找出眼睛的「缺陷」，看看大腦怎麼幫它補救。</p>
+    <p class="small">🔗 對應課本：七年級生物「眼睛的構造」、八年級理化「光」、九年級地科「月亮」</p>
+  </div>
+
+  <!-- 5.1 盲點 -->
+  <article class="card ill" id="c-blind" data-ill="blind">
+    <header class="card-h"><span class="num">5.1</span><h3>找到你的盲點</h3><span class="tag">眼睛構造：視神經盤</span></header>
+    <div class="stage" style="--stage-bg:#fff"><canvas id="blind-cv"></canvas></div>
+    <ol class="steps-list">
+      <li>用手遮住<b>左眼</b>。</li>
+      <li>用右眼盯著左邊的 <b>＋</b>，視線不要移開。</li>
+      <li>臉慢慢靠近、再慢慢遠離螢幕（大約 25～50 公分）。</li>
+      <li>在某個距離，右邊的東西會<b>突然消失</b>！找不到的話，用下面的拉桿調整距離。</li>
+    </ol>
+    <div class="card-b">
+      <div class="side">
+        <div class="guess" data-for="blind"></div>
+      </div>
+      <div class="side">
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手實驗</h4>
+          <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+          <div class="tools">
+            <div class="seg" id="blind-mode">
+              <button class="on" data-v="dot">紅色圓點</button>
+              <button data-v="line">斷掉的線</button>
+              <button data-v="stripe">條紋背景</button>
+            </div>
+            <label class="range">＋ 和目標的距離 <output id="blind-out">400</output>
+              <input type="range" id="blind-dist" min="220" max="540" value="400"></label>
+            <p class="tip">🧠 試試「斷掉的線」：缺口消失時，線看起來是<b>連起來</b>的！大腦把洞補起來了。</p>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>視神經和血管離開眼球的地方叫「視神經盤」，那裡<b>完全沒有感光細胞</b>，所以每隻眼睛都有一個看不見的盲點。平常你感覺不到它，是因為：① 兩隻眼睛的盲點位置不同，可以互相補；② 大腦會用周圍的樣子把洞「補起來」。</p>
+          <details><summary>深入一點：章魚沒有盲點！</summary>
+            <p>人類的視網膜好像「裝反了」：感光細胞在最裡層，神經纖維鋪在前面，最後必須集合起來穿過視網膜離開眼球，就留下了盲點。章魚的視神經是從視網膜<b>後面</b>接出去的，所以牠沒有盲點。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.2 雙眼視差 -->
+  <article class="card ill" id="c-stereo" data-ill="stereo">
+    <header class="card-h"><span class="num">5.2</span><h3>兩隻眼睛看到的不一樣</h3><span class="tag">雙眼視差</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#f4f8ff">
+        <canvas id="stereo-cv"></canvas>
+        <div class="eye-panels">
+          <figure><figcaption>👁 左眼看到</figcaption><canvas id="stereo-l"></canvas></figure>
+          <figure><figcaption>右眼看到 👁</figcaption><canvas id="stereo-r"></canvas></figure>
+        </div>
+        <p class="stage-note" id="stereo-note"></p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="stereo"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <label class="range">手指離眼睛的距離 <output id="stereo-out">中間</output>
+              <input type="range" id="stereo-d" min="30" max="225" value="110"></label>
+            <div class="mini-game">
+              <b>✋ 用身體做實驗</b>
+              <ol class="small">
+                <li><b>跳躍的手指：</b>伸出一根手指，輪流閉左眼、閉右眼。手指離眼睛越近，跳得越遠嗎？</li>
+                <li><b>浮空香腸：</b>兩手食指指尖相對，放在眼前約 30 公分，眼睛看遠方的牆，指尖中間會出現一小截「香腸」！</li>
+                <li><b>主視眼測試：</b>兩手比一個小三角形框住遠處的東西，輪流閉眼。哪隻眼睛閉上時東西「跑掉」了？另一隻就是你的主視眼。</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>兩隻眼睛相距大約 6 公分，看同一個東西的角度不一樣，所以兩眼的畫面有一點差距，這叫<b>雙眼視差</b>。東西越近，差距越大。大腦就是用這個差距來判斷遠近。</p>
+          <details><summary>深入一點</summary>
+            <p>3D 電影用特殊眼鏡，讓左眼和右眼分別看到不同角度拍的畫面，大腦就把它們合成立體。反過來，螢幕上的「空心面具」兩眼看到的畫面一樣，沒有視差線索，所以特別容易騙人。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.3 車輪倒轉 + 似動 -->
+  <article class="card ill" id="c-wheel" data-ill="wheel">
+    <header class="card-h"><span class="num">5.3</span><h3>車輪倒轉與「動畫的祕密」</h3><span class="tag">破除迷思：視覺暫留</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#1d2433">
+        <canvas id="wheel-cv"></canvas>
+        <p class="stage-note light" id="wheel-note"></p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="wheel"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <label class="range">輪子轉速 <output id="wheel-out">1.00 圈／秒</output>
+              <input type="range" id="wheel-rps" min="0" max="3" step="0.02" value="1"></label>
+            <div class="seg" id="wheel-fps">
+              <button data-v="12">攝影機 每秒 12 張</button>
+              <button class="on" data-v="24">每秒 24 張</button>
+              <button data-v="0">直接用眼睛看</button>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn-sm" id="wheel-red">🔴 把一根輪輻塗紅</button>
+              <button class="btn btn-sm" id="wheel-play">⏸ 暫停</button>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>影片其實是一張一張的照片。如果輪子在兩張照片之間，剛好轉了「差一點點就到下一根輪輻」的角度，大腦會把它配對成「往回轉了一點點」，所以看起來倒轉。把一根輪輻塗紅，就能看出它其實一直往前轉。</p>
+          <details><summary>深入一點：「視覺暫留」說錯了一半</summary>
+            <p>很多書說我們看得到動畫，是因為「視覺暫留」（影像在眼睛裡停留一下）。但視覺暫留只能解釋「畫面為什麼不會一閃一閃」，解釋不了「為什麼看起來在動」。真正把一張張靜止畫面變成動作的，是大腦主動把前後畫面配對、補成連續移動，叫做<b>似動現象</b>。下面的兩顆點就是最簡單的例子。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+    <div class="phi-box">
+      <div class="stage" style="--stage-bg:#1d2433"><canvas id="phi-cv"></canvas></div>
+      <div>
+        <b>🔵 似動現象：兩顆點輪流亮</b>
+        <label class="range">間隔時間 <output id="phi-out">250 毫秒</output>
+          <input type="range" id="phi-ms" min="120" max="900" step="10" value="250"></label>
+        <p class="small" id="phi-note">間隔短的時候，看起來像<b>一顆點</b>在左右跳；間隔拉長，就變成兩顆點輪流閃。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- 5.4 月亮錯覺 -->
+  <article class="card ill" id="c-moon" data-ill="moon">
+    <header class="card-h"><span class="num">5.4</span><h3>月亮錯覺</h3><span class="tag">連結地科 🌕</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#0b1630">
+        <canvas id="moon-cv"></canvas>
+        <p class="stage-note light small">螢幕上的效果比真實天空弱很多，真正的月亮錯覺要到戶外看才明顯</p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="moon"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <div class="btn-row">
+              <button class="btn btn-sm" id="moon-move">⬇️ 把高空的月亮拉下來比</button>
+              <button class="btn btn-sm" id="moon-ground">🏙 拿掉地面景物</button>
+            </div>
+            <div class="mini-game">
+              <b>🏠 回家實驗</b>
+              <p class="small">下次看到又大又圓的月亮剛升起，手臂伸直，用鉛筆後面的橡皮擦比比看月亮有多大。過幾個小時月亮升高了，再比一次——你會發現大小幾乎一樣！</p>
+            </div>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>月亮在地平線和在頭頂時，在天空中的大小（視角約 0.5 度）幾乎一樣，但大部分人覺得地平線的月亮大很多！一種解釋是：地平線附近有房子、樹當參考，大腦覺得月亮「很遠」，就把它放大了（跟鐵軌錯覺一樣）。</p>
+          <details><summary>深入一點：科學家還在爭論</summary>
+            <p>另一種解釋是：大腦把天空想像成一個扁扁的碗，地平線那邊比頭頂遠。到現在還沒有完全統一的答案。</p>
+            <p>其實嚴格算起來，地平線的月亮離你比較遠（多了將近一個地球半徑），在天空中反而<b>小了約 1～2%</b>！也有人說，彎腰從兩腿中間倒著看月亮，它會變小，可以試試看。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ===================== 分頁 6：大腦愛腦補（新） ===================== -->
+<section class="tab-panel" id="tab-brain" hidden>
+  <div class="intro" style="--accent: var(--c-brain)">
+    <h2>🧩 大腦最討厭「不知道」</h2>
+    <p>資訊不完整的時候，大腦會自動補上一個最合理的答案，就算那個答案根本不存在。</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- 6.1 花瓶與臉 -->
+    <article class="card ill" id="c-vase" data-ill="vase">
+      <header class="card-h"><span class="num">6.1</span><h3>花瓶還是臉？</h3><span class="tag">圖形與背景</span></header>
+      <div class="stage" style="--stage-bg:#fff"><canvas id="vase-cv"></canvas></div>
+      <div class="guess" data-for="vase"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <div class="btn-row">
+            <button class="btn btn-sm" data-vase="face">👁 加上眼睛（變成臉）</button>
+            <button class="btn btn-sm" data-vase="vase">🌷 插上花（變成花瓶）</button>
+            <button class="btn btn-sm" data-vase="invert">🔄 黑白反轉</button>
+            <button class="btn btn-sm" data-vase="plain">↩ 原圖</button>
+          </div>
+          <p class="tip">挑戰：你能<b>同時</b>看到花瓶和兩張臉嗎？</p>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>看圖時，大腦會先決定「哪一塊是主角（圖形），哪一塊是背景」。這張圖兩種分法都合理，所以你會在花瓶和人臉之間切換，但很難同時看到兩個。</p>
+        <details><summary>深入一點</summary>
+          <p>這是格式塔心理學（Gestalt）的重要發現，這張圖叫「魯賓花瓶」。設計師很愛用這招：很多商標的空白處都藏著第二個圖案，下次走在路上可以找找看。</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 6.2 隱形三角形 -->
+    <article class="card ill" id="c-kanizsa" data-ill="kanizsa">
+      <header class="card-h"><span class="num">6.2</span><h3>隱形三角形</h3><span class="tag">主觀輪廓</span></header>
+      <div class="stage" style="--stage-bg:#fff"><canvas id="kanizsa-cv"></canvas></div>
+      <div class="guess" data-for="kanizsa"></div>
+      <div class="reveal locked">
+        <h4><span class="step">2</span>動手揭曉</h4>
+        <p class="lock-note">🔒 先猜一猜，就會解鎖</p>
+        <div class="tools">
+          <label class="range">轉動三個「小精靈」 <output id="kanizsa-out">0°</output>
+            <input type="range" id="kanizsa-rot" min="0" max="180" value="0"></label>
+          <button class="btn btn-sm" id="kanizsa-show">🖍 標出真正畫了什麼</button>
+        </div>
+      </div>
+      <div class="why locked">
+        <h4><span class="step">3</span>為什麼？</h4>
+        <p>三個缺口剛好對齊時，最簡單的解釋是「有一個白色三角形蓋在上面」。大腦就直接把這個三角形「看」出來，甚至覺得它比背景更白、邊緣很清楚。</p>
+        <details><summary>深入一點</summary>
+          <p>這叫「主觀輪廓」，由義大利心理學家卡尼薩在 1955 年提出。轉動小精靈、讓缺口不再對齊，三角形就消失了，代表大腦是根據「對齊」這個線索在腦補。</p>
+        </details>
+      </div>
+    </article>
+  </div>
+
+  <!-- 6.3 不可能三角 -->
+  <article class="card ill" id="c-penrose" data-ill="penrose">
+    <header class="card-h"><span class="num">6.3</span><h3>不可能的三角形</h3><span class="tag">大腦一小塊一小塊檢查</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#f6f2ea">
+        <canvas id="penrose-cv"></canvas>
+        <p class="stage-note" id="penrose-note"></p>
+      </div>
+      <div class="side">
+        <div class="guess" data-for="penrose"></div>
+        <div class="reveal locked">
+          <h4><span class="step">2</span>動手揭曉</h4>
+          <p class="lock-note">🔒 先在上面猜一猜，就會解鎖</p>
+          <div class="tools">
+            <label class="range">換個角度看 <output id="penrose-out">神奇角度</output>
+              <input type="range" id="penrose-ang" min="20" max="70" step="0.5" value="45"></label>
+            <button class="btn btn-sm" id="penrose-reset">✨ 回到神奇角度</button>
+          </div>
+        </div>
+        <div class="why locked">
+          <h4><span class="step">3</span>為什麼？</h4>
+          <p>這個三角形的<b>每一個轉角單獨看都很合理</b>，但三個轉角合在一起就違反了立體空間的規則。大腦是一小塊一小塊檢查圖形的，每一塊都沒問題，所以不會馬上發現矛盾。</p>
+          <p>真的做出來的模型其實是<b>斷開</b>的，只是從某個特定角度看，斷口剛好被對齊、看起來接在一起。轉動拉桿就會穿幫！</p>
+          <details><summary>深入一點</summary>
+            <p>這叫「潘洛斯三角」，數學家潘洛斯父子在 1958 年發表。荷蘭畫家艾雪（M. C. Escher）把它畫進名作《瀑布》：水一直往下流，卻又回到起點。澳洲伯斯市有一座真的不可能三角雕塑，只有站在特定位置才看得到這個效果。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- ===================== 分頁 7：挑戰區（新） ===================== -->
+<section class="tab-panel" id="tab-game" hidden>
+  <div class="intro" style="--accent: var(--c-game)">
+    <h2>🎮 挑戰你的大腦</h2>
+    <p>三個小遊戲：考驗你的注意力、自制力，還有你在這個網站學到多少。</p>
+  </div>
+
+  <!-- 7.1 找不同 -->
+  <article class="card ill" id="c-change" data-ill="change">
+    <header class="card-h"><span class="num">7.1</span><h3>慢慢變的畫</h3><span class="tag">變化盲視</span></header>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#cfe9fb">
+        <canvas id="change-cv"></canvas>
+        <p class="stage-note" id="change-note">按「開始」後，畫面中有<b>一個地方</b>會非常慢地改變。發現了就直接點它！</p>
+      </div>
+      <div class="side">
+        <h4>🕵️ 玩法</h4>
+        <ol class="small">
+          <li>按「開始第 1 回合」。</li>
+          <li>畫裡有一樣東西會在 15 秒內<b>慢慢</b>改變。</li>
+          <li>發現了就點它。總共 3 回合。</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="change-start">▶ 開始第 1 回合</button>
+          <button class="btn btn-sm" id="change-compare" disabled>🔁 前後對照</button>
+        </div>
+        <div class="scoreboard" id="change-score"></div>
+        <div class="why" id="change-why" hidden>
+          <h4>為什麼這麼難？</h4>
+          <p>你以為自己看到了整張畫，其實大腦一次只「認真看」一小部分，其他地方是用記憶和猜測補上的。改變得夠慢時，就不會吸引你的注意，所以很難發現。這叫<b>變化盲視</b>。</p>
+          <details><summary>深入一點</summary>
+            <p>著名的「看不見的大猩猩」實驗：受試者專心數籃球傳了幾次，有一半的人完全沒注意到一個穿大猩猩裝的人走過畫面中間！這也是為什麼開車、過馬路時不能分心滑手機。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="grid-2">
+    <!-- 7.2 顏色打架 -->
+    <article class="card ill" id="c-stroop" data-ill="stroop">
+      <header class="card-h"><span class="num">7.2</span><h3>顏色打架</h3><span class="tag">斯楚普效應</span></header>
+      <p><b>規則：</b>點選字的<b>顏色</b>，不是字的意思！例如看到用綠色寫的「紅」，要點「綠」。</p>
+      <div class="stroop-stage" id="stroop-stage">
+        <div class="stroop-word" id="stroop-word">準備好了嗎？</div>
+        <div class="stroop-progress" id="stroop-progress"></div>
+      </div>
+      <div class="stroop-btns" id="stroop-btns">
+        <button data-c="red" style="--c:#e53935">紅</button>
+        <button data-c="yellow" style="--c:#e0a800">黃</button>
+        <button data-c="green" style="--c:#2e9d4b">綠</button>
+        <button data-c="blue" style="--c:#1e66d0">藍</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="stroop-start">▶ 開始（共 2 回合）</button>
+      </div>
+      <div class="scoreboard" id="stroop-score"></div>
+      <div class="why" id="stroop-why" hidden>
+        <h4>為什麼第二回合比較慢？</h4>
+        <p>讀字對你來說太自動了，大腦停不下來。字的意思和字的顏色不一樣時，兩個訊號在大腦裡打架，你需要多花時間壓住「讀字」的習慣。</p>
+        <details><summary>深入一點</summary>
+          <p>這叫「斯楚普效應」，1935 年發表，常被用來研究注意力和自制力。剛學中文的外國人，反而比較不受影響！</p>
+        </details>
+      </div>
+    </article>
+
+    <!-- 7.3 大會考 -->
+    <article class="card ill" id="c-quiz" data-ill="quiz">
+      <header class="card-h"><span class="num">7.3</span><h3>錯覺大會考</h3><span class="tag">10 題</span></header>
+      <div id="quiz-box" class="quiz-box">
+        <p>逛完各分頁之後，來測測看你懂了多少！</p>
+        <button class="btn btn-primary" id="quiz-start">📝 開始作答</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 分頁 8：探究與總結 ===================== -->
+<section class="tab-panel" id="tab-lab" hidden>
+  <div class="intro" style="--accent: var(--c-lab)">
+    <h2>🧪 換你當科學家</h2>
+    <p>科學家研究錯覺時，會「只改變一個條件，其他都不變」，然後測量錯覺有多強。這一頁讓你自己做一次真正的實驗。</p>
+  </div>
+
+  <!-- 8.1 探究實驗 -->
+  <article class="card ill" id="c-lab" data-ill="lab">
+    <header class="card-h"><span class="num">8.1</span><h3>實驗：箭頭的角度會影響錯覺嗎？</h3><span class="tag">變因控制</span></header>
+    <div class="var-table">
+      <div><b>🔧 操縱變因</b><span>箭頭和線段的夾角</span></div>
+      <div><b>📊 應變變因</b><span>你調出來的長度誤差（%）</span></div>
+      <div><b>🔒 控制變因</b><span>線段長 200、箭頭長 30、顏色、觀看距離</span></div>
+    </div>
+    <div class="card-b">
+      <div class="stage" style="--stage-bg:#fffdf8">
+        <canvas id="lab-cv"></canvas>
+      </div>
+      <div class="side">
+        <p><b>步驟一：</b>選一個箭頭角度。</p>
+        <div class="seg" id="lab-angle">
+          <button data-v="20">20°</button>
+          <button class="on" data-v="40">40°</button>
+          <button data-v="60">60°</button>
+          <button data-v="90">90°</button>
+        </div>
+        <p><b>步驟二：</b>拉桿子，把下面的線調到你<b>覺得</b>和上面一樣長（上面的線不算箭頭）。</p>
+        <label class="range">下面的線 <output id="lab-len-out"></output>
+          <input type="range" id="lab-len" min="140" max="280" value="200"></label>
+        <p><b>步驟三：</b>記錄結果。每個角度最好做 2～3 次。</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="lab-record">📝 記錄這一次</button>
+          <button class="btn btn-sm" id="lab-clear">🗑 清除全部紀錄</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 lab-results">
+      <div>
+        <h4>📋 紀錄表</h4>
+        <table class="data-table" id="lab-table">
+          <thead><tr><th>角度</th><th>次數</th><th>平均誤差</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p class="small muted">誤差 =（你調的長度 − 200）÷ 200。正數代表你覺得有箭頭的線比較長。</p>
+      </div>
+      <div>
+        <h4>📊 長條圖</h4>
+        <canvas id="lab-chart"></canvas>
+      </div>
+    </div>
+    <div class="conclusion">
+      <h4>✍️ 寫下你的結論</h4>
+      <div class="grid-3">
+        <label>主張（你發現了什麼？）<textarea id="lab-claim" rows="3" placeholder="例如：箭頭角度越……，錯覺越……"></textarea></label>
+        <label>證據（哪些數據支持？）<textarea id="lab-evidence" rows="3" placeholder="例如：20° 時平均誤差是……"></textarea></label>
+        <label>理由（為什麼會這樣？）<textarea id="lab-reason" rows="3" placeholder="可以用 3.1 學到的解釋"></textarea></label>
+      </div>
+      <details><summary>科學家的發現（做完實驗再打開）</summary>
+        <p>許多研究發現：箭頭的夾角<b>越小（越尖）</b>，錯覺通常<b>越強</b>；夾角接近 90° 時，錯覺就很弱了。你的結果一樣嗎？如果不一樣，可能是什麼原因？（次數太少？每個人不同？）</p>
+      </details>
+    </div>
+  </article>
+
+  <!-- 8.2 總結 -->
+  <article class="card">
+    <header class="card-h"><span class="num">8.2</span><h3>總結：錯覺讓我們看見大腦的規則</h3></header>
+    <div class="pipeline">
+      <div><span>1</span><b>眼睛（視網膜）</b><p>把光變成電訊號。盲點、殘像、側抑制都發生在這裡。</p></div>
+      <div><span>2</span><b>視神經 → 視丘</b><p>像轉運站，把訊號整理、分送到大腦後方。</p></div>
+      <div><span>3</span><b>視覺皮層</b><p>找出線條、方向、亮暗、顏色。咖啡館牆、棋盤陰影跟這裡有關。</p></div>
+      <div><span>4</span><b>高階區域</b><p>判斷「這是什麼」「在哪裡、怎麼動」。臉、動作、遠近在這裡處理。</p></div>
+    </div>
+    <table class="data-table rules-table">
+      <thead><tr><th>大腦的經驗規則</th><th>平常的好處</th><th>被騙的例子</th></tr></thead>
+      <tbody>
+        <tr><td>☀️ 光從上面來</td><td>快速看出物體凹凸</td><td>1.1 光影凹凸</td></tr>
+        <tr><td>😀 臉一定是凸的</td><td>一眼認出人臉</td><td>1.2 空心面具</td></tr>
+        <tr><td>🌗 影子裡要補亮</td><td>不管光線怎麼變，東西顏色都穩定</td><td>2.1 棋盤、2.2 洋裝</td></tr>
+        <tr><td>🛤 近大遠小</td><td>人走遠了也不會覺得他縮小</td><td>3.1 箭頭、3.3 鐵軌、5.4 月亮</td></tr>
+        <tr><td>⚖️ 跟旁邊比</td><td>突顯差異、快速比較</td><td>3.2 圓圈、2.1 棋盤</td></tr>
+        <tr><td>😴 細胞會疲勞</td><td>對一直不變的東西降低敏感、注意新變化</td><td>2.4 殘像、4.3 螺旋</td></tr>
+        <tr><td>🧩 資訊不夠就補</td><td>被擋住一半的東西也認得出來</td><td>5.1 盲點、6.2 三角形</td></tr>
+        <tr><td>🎯 一次只注意一點</td><td>專心處理重要的事</td><td>7.1 慢慢變的畫</td></tr>
+      </tbody>
+    </table>
+    <div class="big-idea">💡 <b>錯覺不是眼睛壞掉，而是大腦太聰明。</b>大腦用經驗規則快速猜出世界，99% 的時候都對；錯覺就是那 1%，讓我們有機會偷看大腦是怎麼運作的。</div>
+  </article>
+</section>
+
+</main>
+
+<footer class="footer">視覺錯覺實驗室 · 給國中自然課使用的互動教材 · 2026</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 3D 繪圖工具（只有「空心面具」需要，沒網路時其他功能照常） -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/core.js?v=4"></script>
+<script src="js/t1-space.js?v=4"></script>
+<script src="js/t2-light.js?v=4"></script>
+<script src="js/t3-size.js?v=4"></script>
+<script src="js/t4-motion.js?v=4"></script>
+<script src="js/t5-eye.js?v=4"></script>
+<script src="js/t6-brain.js?v=4"></script>
+<script src="js/t7-games.js?v=4"></script>
+<script src="js/t8-lab.js?v=4"></script>
+</body>
+</html>
