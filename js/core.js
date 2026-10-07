@@ -338,11 +338,32 @@ document.addEventListener('DOMContentLoaded', () => {
     pauseBtn.textContent = Anim.paused ? '▶ 恢復動畫' : '⏸ 暫停動畫';
     pauseBtn.classList.toggle('on', Anim.paused);
   });
-  $('#btn-reset').addEventListener('click', () => {
-    if (!confirm('確定要清除所有印章和紀錄嗎？清除後無法復原。')) return;
-    Store.data = { stamps: {}, big: Store.data.big, best: {} };
+  // 清除進度：不用瀏覽器的確認視窗（可能被擋掉），改成「按兩次」確認
+  const resetBtn = $('#btn-reset');
+  let armTimer = null;
+  resetBtn.addEventListener('click', () => {
+    if (!resetBtn.classList.contains('armed')) {
+      resetBtn.classList.add('armed');
+      resetBtn.textContent = '⚠️ 確定清除？再按一次';
+      armTimer = setTimeout(() => { resetBtn.classList.remove('armed'); resetBtn.textContent = '🗑 清除我的進度'; }, 4000);
+      return;
+    }
+    clearTimeout(armTimer);
+    const big = Store.data.big;
+    try { localStorage.removeItem(Store.key); } catch (e) { /* 忽略 */ }
+    Store.data = { stamps: {}, big, best: {} };
     Store.save();
     location.reload();
+  });
+  // 同時開了好幾個分頁時：別的分頁清除或更新進度，這裡也跟著同步，避免舊紀錄被寫回去
+  window.addEventListener('storage', e => {
+    if (e.key !== Store.key) return;
+    let next = null;
+    try { next = e.newValue ? JSON.parse(e.newValue) : null; } catch (err) { /* 忽略 */ }
+    const wiped = !next || !next.stamps || Object.keys(next.stamps).length === 0;
+    if (wiped) { location.reload(); return; }
+    Store.data = Object.assign({ stamps: {}, big: false, best: {} }, next);
+    updateProgress();
   });
 
   $$('.guess[data-for]').forEach(renderGuess);

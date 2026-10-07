@@ -78,21 +78,23 @@ canvas { display: block; max-width: 100%; height: auto; }
 }
 .stamp-pill.bump { animation: bump .5s ease; }
 
-/* 分頁列：寬螢幕自動換行（全部看得到）；窄螢幕左右捲動＋箭頭 */
-.tabs-wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px .6rem; position: relative; display: flex; align-items: center; gap: .3rem; }
+/* 分頁列：永遠一行，左右捲動＋看得見的捲軸＋箭頭 */
+.tabs-wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px .5rem; position: relative; display: flex; align-items: center; gap: .3rem; }
 .tabs {
   flex: 1 1 auto; min-width: 0;
-  display: flex; flex-wrap: wrap; gap: .4rem;
+  display: flex; flex-wrap: nowrap; gap: .4rem;
+  overflow-x: auto; overflow-y: hidden; padding-bottom: .45rem;
+  cursor: grab; scroll-behavior: smooth;
 }
-@media (max-width: 900px) {
-  .tabs {
-    flex-wrap: nowrap; overflow-x: auto; padding-bottom: .35rem;
-    scrollbar-width: thin; scrollbar-color: #b9b2a5 transparent;
-    cursor: grab; scroll-behavior: smooth;
-  }
-  .tabs.dragging { cursor: grabbing; scroll-behavior: auto; }
-  .tabs::-webkit-scrollbar { height: 6px; }
-  .tabs::-webkit-scrollbar-thumb { background: #b9b2a5; border-radius: 3px; }
+.tabs.dragging { cursor: grabbing; scroll-behavior: auto; }
+/* Chrome／Safari／Edge：自訂捲軸會一直顯示，不會自動隱藏 */
+.tabs::-webkit-scrollbar { height: 10px; }
+.tabs::-webkit-scrollbar-track { background: #ece5d8; border-radius: 5px; }
+.tabs::-webkit-scrollbar-thumb { background: #8a8375; border-radius: 5px; border: 2px solid #ece5d8; }
+.tabs::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+/* Firefox */
+@supports not selector(::-webkit-scrollbar) {
+  .tabs { scrollbar-width: auto; scrollbar-color: #8a8375 #ece5d8; }
 }
 .tabs-arrow {
   flex: 0 0 auto; width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer;
@@ -100,6 +102,8 @@ canvas { display: block; max-width: 100%; height: auto; }
   box-shadow: 2px 2px 0 var(--ink); display: grid; place-items: center; padding: 0; margin-bottom: .35rem;
 }
 .tabs-arrow:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-reset { font-size: .82rem; padding: .3rem .7rem; margin-left: .4rem; }
+.btn-reset.armed { background: var(--bad); color: #fff; }
 .tab-btn {
   flex: 0 0 auto; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer;
   padding: .4rem .8rem; border-radius: 999px; border: 2px solid var(--ink);
