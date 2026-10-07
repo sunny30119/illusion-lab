@@ -271,12 +271,56 @@ function switchTab(id, scrollTo) {
   }
 }
 
+/* ---------- 分頁列：箭頭、滑鼠滾輪、按住拖曳都能左右捲 ---------- */
+let tabsDragged = false;
+function setupTabScroller() {
+  const bar = $('.tabs'), left = $('.tabs-arrow.left'), right = $('.tabs-arrow.right');
+  const sync = () => {
+    const over = bar.scrollWidth > bar.clientWidth + 2;
+    left.hidden = !over || bar.scrollLeft <= 2;
+    right.hidden = !over || bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 2;
+  };
+  left.addEventListener('click', () => bar.scrollBy({ left: -bar.clientWidth * 0.7 }));
+  right.addEventListener('click', () => bar.scrollBy({ left: bar.clientWidth * 0.7 }));
+  bar.addEventListener('scroll', sync, { passive: true });
+  window.addEventListener('resize', sync);
+  // 滑鼠滾輪上下滾 → 分頁列左右捲
+  bar.addEventListener('wheel', e => {
+    if (bar.scrollWidth <= bar.clientWidth + 2 || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    bar.scrollBy({ left: e.deltaY, behavior: 'instant' });
+  }, { passive: false });
+  // 滑鼠按住拖曳（手機本來就能用手指滑）
+  let downX = null, startLeft = 0;
+  bar.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse') return;
+    downX = e.clientX; startLeft = bar.scrollLeft; tabsDragged = false;
+  });
+  window.addEventListener('pointermove', e => {
+    if (downX === null) return;
+    const dx = e.clientX - downX;
+    if (Math.abs(dx) > 5) { tabsDragged = true; bar.classList.add('dragging'); }
+    if (tabsDragged) bar.scrollLeft = startLeft - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (downX === null) return;
+    downX = null; bar.classList.remove('dragging');
+    setTimeout(() => { tabsDragged = false; }, 0);
+  });
+  sync();
+  setTimeout(sync, 300);
+}
+
 /* ---------- 啟動 ---------- */
 document.addEventListener('DOMContentLoaded', () => {
   Store.load();
   if (Store.data.big) document.documentElement.classList.add('big');
 
-  $$('.tab-btn').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+  $$('.tab-btn').forEach(b => b.addEventListener('click', e => {
+    if (tabsDragged) { e.preventDefault(); return; } // 剛剛是在拖曳，不算點擊
+    switchTab(b.dataset.tab);
+  }));
+  setupTabScroller();
   document.addEventListener('click', e => {
     const go = e.target.closest('[data-goto]');
     if (go) { e.preventDefault(); switchTab(go.dataset.goto); return; }

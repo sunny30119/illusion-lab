@@ -78,11 +78,28 @@ canvas { display: block; max-width: 100%; height: auto; }
 }
 .stamp-pill.bump { animation: bump .5s ease; }
 
+/* 分頁列：寬螢幕自動換行（全部看得到）；窄螢幕左右捲動＋箭頭 */
+.tabs-wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px .6rem; position: relative; display: flex; align-items: center; gap: .3rem; }
 .tabs {
-  max-width: 1200px; margin: 0 auto; padding: 0 16px .6rem;
-  display: flex; gap: .4rem; overflow-x: auto; scrollbar-width: none;
+  flex: 1 1 auto; min-width: 0;
+  display: flex; flex-wrap: wrap; gap: .4rem;
 }
-.tabs::-webkit-scrollbar { display: none; }
+@media (max-width: 900px) {
+  .tabs {
+    flex-wrap: nowrap; overflow-x: auto; padding-bottom: .35rem;
+    scrollbar-width: thin; scrollbar-color: #b9b2a5 transparent;
+    cursor: grab; scroll-behavior: smooth;
+  }
+  .tabs.dragging { cursor: grabbing; scroll-behavior: auto; }
+  .tabs::-webkit-scrollbar { height: 6px; }
+  .tabs::-webkit-scrollbar-thumb { background: #b9b2a5; border-radius: 3px; }
+}
+.tabs-arrow {
+  flex: 0 0 auto; width: 2rem; height: 2rem; border-radius: 50%; cursor: pointer;
+  border: 2px solid var(--ink); background: #ffd84d; color: var(--ink); font-size: .75rem; font-weight: 900;
+  box-shadow: 2px 2px 0 var(--ink); display: grid; place-items: center; padding: 0; margin-bottom: .35rem;
+}
+.tabs-arrow:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
 .tab-btn {
   flex: 0 0 auto; font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer;
   padding: .4rem .8rem; border-radius: 999px; border: 2px solid var(--ink);
